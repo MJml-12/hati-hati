@@ -24,19 +24,34 @@
         
         .container {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 90%;
+            min-height: 300px;
             position: relative;
             z-index: 10;
-            animation: fadeIn 1s ease-in;
+            animation: fadeIn 0.8s ease-in;
         }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .screen {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .screen.active {
+            display: block;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
         h1 {
@@ -72,11 +87,39 @@
             60% { transform: translateY(-10px); }
         }
         
+        .btn {
+            background: linear-gradient(135deg, #ff1744 0%, #ff5252 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(255, 23, 68, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 23, 68, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
         .plane {
             position: fixed;
             font-size: 3em;
-            animation: fly 8s linear infinite;
             z-index: 1;
+            display: none;
+        }
+        
+        .plane.flying {
+            display: block;
+            animation: fly 6s linear infinite;
         }
         
         @keyframes fly {
@@ -88,8 +131,12 @@
             position: fixed;
             color: #ff1744;
             font-size: 2em;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .heart.floating {
             animation: float 6s ease-in-out infinite;
-            opacity: 0.7;
         }
         
         @keyframes float {
@@ -107,12 +154,34 @@
         .japan-emoji {
             font-size: 1.5em;
             margin: 0 5px;
+            display: inline-block;
+            animation: rotate 3s ease-in-out infinite;
         }
+        
+        @keyframes rotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(10deg); }
+        }
+        
+        .japan-emoji:nth-child(2) { animation-delay: 0.2s; }
+        .japan-emoji:nth-child(3) { animation-delay: 0.4s; }
+        .japan-emoji:nth-child(4) { animation-delay: 0.6s; }
         
         @media (max-width: 600px) {
             h1 { font-size: 2em; }
             .message { font-size: 1em; }
             .emoji-large { font-size: 3em; }
+            .btn { font-size: 1.1em; padding: 12px 30px; }
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        .shaking {
+            animation: shake 0.5s ease-in-out infinite;
         }
     </style>
 </head>
@@ -126,29 +195,95 @@
     <div class="plane">✈️</div>
     
     <div class="container">
-        <div class="emoji-large">💕</div>
-        <h1>Hati-hati Sayangg!</h1>
-        
-        <div class="message">
-            <p>Semoga perjalanan ke Osaka lancar dan menyenangkan!</p>
-            <p style="margin-top: 15px;">
-                <span class="japan-emoji">🌸</span>
-                <span class="japan-emoji">🏯</span>
-                <span class="japan-emoji">🍜</span>
-                <span class="japan-emoji">🗾</span>
-            </p>
-            <p style="margin-top: 15px; font-weight: bold; color: #ff1744;">
-                Jaga diri baik-baik ya! 💖
-            </p>
-            <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                Aku tunggu ceritamu! ✨
-            </p>
+        <!-- Screen 1: Initial Button -->
+        <div id="screen1" class="screen active">
+            <div class="emoji-large shaking">💕</div>
+            <h1>Ada Pesan Buat Kamu!</h1>
+            <button class="btn" onclick="nextScreen(2)">Klik Aku Dong 👉👈</button>
         </div>
         
-        <div class="emoji-large">🥰</div>
+        <!-- Screen 2: Ciee Jalan-jalan -->
+        <div id="screen2" class="screen">
+            <div class="emoji-large">😏</div>
+            <h1 style="color: #764ba2;">Ciee Jalan-jalan! ✈️</h1>
+            <div class="message">
+                <p style="font-size: 1.3em; font-weight: bold;">Ke Osaka lagi nih yee~ 🇯🇵</p>
+                <p style="margin-top: 15px;">
+                    <span class="japan-emoji">🌸</span>
+                    <span class="japan-emoji">🏯</span>
+                    <span class="japan-emoji">🍜</span>
+                    <span class="japan-emoji">🗾</span>
+                </p>
+            </div>
+            <button class="btn" onclick="nextScreen(3)">Lanjut 💖</button>
+        </div>
+        
+        <!-- Screen 3: Final Message -->
+        <div id="screen3" class="screen">
+            <div class="emoji-large">🥰</div>
+            <h1>Hati-hati di Jalan Yaa!</h1>
+            <div class="message">
+                <p style="font-weight: bold; color: #ff1744; font-size: 1.15em;">
+                    Semoga selamat sampai tujuan dan pulang dengan selamat! 🙏✨
+                </p>
+                <p style="margin-top: 20px; font-size: 1.1em;">
+                    Aku tunggu ceritanya yaa! 💕
+                </p>
+                <p style="margin-top: 15px; color: #666;">
+                    Jaga diri baik-baik, jangan lupa istirahat 😊
+                </p>
+            </div>
+            <div class="emoji-large">💝</div>
+        </div>
     </div>
     
     <script>
+        let currentScreen = 1;
+        
+        function nextScreen(screenNumber) {
+            // Hide current screen
+            document.getElementById('screen' + currentScreen).classList.remove('active');
+            
+            // Show next screen
+            document.getElementById('screen' + screenNumber).classList.add('active');
+            currentScreen = screenNumber;
+            
+            // Start animations based on screen
+            if (screenNumber === 2) {
+                // Start plane flying
+                document.querySelector('.plane').classList.add('flying');
+                
+                // Show floating hearts
+                document.querySelectorAll('.heart').forEach(heart => {
+                    heart.classList.add('floating');
+                });
+            }
+            
+            if (screenNumber === 3) {
+                // More hearts!
+                createExtraHearts();
+            }
+        }
+        
+        function createExtraHearts() {
+            const hearts = ['💖', '💗', '💕', '💓', '💝', '❤️', '💜'];
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.bottom = '-50px';
+                    heart.style.fontSize = '2em';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = 'float 4s ease-in-out forwards';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 200);
+            }
+        }
+        
         // Add sparkle effect on click
         document.body.addEventListener('click', function(e) {
             const sparkle = document.createElement('div');
@@ -159,6 +294,7 @@
             sparkle.style.fontSize = '2em';
             sparkle.style.pointerEvents = 'none';
             sparkle.style.animation = 'sparkleAnim 1s ease-out forwards';
+            sparkle.style.zIndex = '1000';
             document.body.appendChild(sparkle);
             
             setTimeout(() => sparkle.remove(), 1000);
