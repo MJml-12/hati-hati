@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hati-hati Sayangg 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 90%;
+            position: relative;
+            z-index: 10;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            color: #ff1744;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .message {
+            font-size: 1.2em;
+            color: #333;
+            line-height: 1.8;
+            margin: 20px 0;
+        }
+        
+        .emoji-large {
+            font-size: 4em;
+            margin: 20px 0;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        .plane {
+            position: fixed;
+            font-size: 3em;
+            animation: fly 8s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes fly {
+            0% { left: -10%; top: 10%; }
+            100% { left: 110%; top: 60%; }
+        }
+        
+        .heart {
+            position: fixed;
+            color: #ff1744;
+            font-size: 2em;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .heart:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .heart:nth-child(4) { left: 70%; animation-delay: 1s; }
+        .heart:nth-child(5) { left: 90%; animation-delay: 3s; }
+        
+        .japan-emoji {
+            font-size: 1.5em;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .message { font-size: 1em; }
+            .emoji-large { font-size: 3em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart">💖</div>
+    <div class="heart">💗</div>
+    <div class="heart">💕</div>
+    <div class="heart">💓</div>
+    <div class="heart">💝</div>
+    
+    <div class="plane">✈️</div>
+    
+    <div class="container">
+        <div class="emoji-large">💕</div>
+        <h1>Hati-hati Sayangg!</h1>
+        
+        <div class="message">
+            <p>Semoga perjalanan ke Osaka lancar dan menyenangkan!</p>
+            <p style="margin-top: 15px;">
+                <span class="japan-emoji">🌸</span>
+                <span class="japan-emoji">🏯</span>
+                <span class="japan-emoji">🍜</span>
+                <span class="japan-emoji">🗾</span>
+            </p>
+            <p style="margin-top: 15px; font-weight: bold; color: #ff1744;">
+                Jaga diri baik-baik ya! 💖
+            </p>
+            <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
+                Aku tunggu ceritamu! ✨
+            </p>
+        </div>
+        
+        <div class="emoji-large">🥰</div>
+    </div>
+    
+    <script>
+        // Add sparkle effect on click
+        document.body.addEventListener('click', function(e) {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.top = e.clientY + 'px';
+            sparkle.style.fontSize = '2em';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.animation = 'sparkleAnim 1s ease-out forwards';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1000);
+        });
+        
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes sparkleAnim {
+                0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                100% { transform: scale(2) rotate(180deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
